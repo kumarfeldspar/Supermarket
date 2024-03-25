@@ -6,7 +6,7 @@ const Bill = require("../models/bill");
 const Item = require("../models/item");
 const bcrypt = require("../helper/bcrypt");
 const jwt = require("../helper/jwt");
-const verifySiginIn = require("../middlewares/verifySignIn");
+const verifySignIn = require("../middlewares/verifySignIn");
 
 router.get("/", (req, res) => {
   res.send("hello from app.js");
@@ -57,8 +57,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/addInventory", verifySiginIn, async (req, res) => {
-
+router.post("/addInventory", verifySignIn, async (req, res) => {
   // console.log("second");
   try {
     const { _id, name, price, quantity, photoUrl } = req.body;
@@ -99,4 +98,54 @@ router.post("/addInventory", verifySiginIn, async (req, res) => {
   }
 });
 
+router.post("/updateQuantity", verifySignIn, async (req, res) => {
+  try {
+    const { itemId, quantity } = req.body;
+    if (!itemId || !quantity) {
+      return res.status(422).json({ error: "Please add all the fields" });
+    }
+    const item = await Item.findOne({ itemId });
+    console.log("3");
+    if (!item) {
+      return res.status(422).json({ error: "Invalid item" });
+    }
+    item.quantity = parseInt(item.quantity) + parseInt(quantity);
+    await item.save();
+    res.status(200).json(item);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//_id is the id of the user
+//what details can we know from _id?
+//we can know the type of the user
+router.post("/changePrice", verifySignIn, async (req, res) => {
+  try {
+    const { _id, itemId, newPrice } = req.body;
+    if (!itemId || !newPrice) {
+      return res.status(422).json({ error: "Please add all the fields" });
+    }
+    const user = await User.findById(_id);
+    if (!user) {
+      return res.status(422).json({ error: "Invalid user" });
+    }
+    console.log(user.type);
+    if (user.type !== "manager") {
+      return res.status(422).json({ error: "You are not authorized" });
+    }
+    const item = await Item.findOne({ itemId });
+
+    if (!item) {
+      return res.status(422).json({ error: "Invalid item" });
+    }
+    item.price = parseInt(newPrice);
+    await item.save();
+    res.status(200).json(item);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = router;
