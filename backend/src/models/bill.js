@@ -24,7 +24,6 @@ const billSchema = new mongoose.Schema(
         },
         unitPrice: {
           type: Number,
-          required: true,
           min: 0,
         },
         quantity: {
@@ -36,6 +35,9 @@ const billSchema = new mongoose.Schema(
           type: Number,
           required: true,
           min: 0,
+          default: function () {
+            return this.unitPrice * this.quantity;
+          },
         },
       },
     ],
