@@ -1,6 +1,4 @@
-const { timeStamp } = require("console");
 const mongoose = require("mongoose");
-const { type } = require("os");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -10,7 +8,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Ensure email is unique
+    unique: true,
   },
   password: {
     type: String,
@@ -23,4 +21,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-mongoose.model("user", userSchema); //can be accessed from anywhere in the application
+module.exports = mongoose.model("User", userSchema);
