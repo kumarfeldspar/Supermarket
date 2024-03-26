@@ -24,7 +24,8 @@ router.post("/login", async (req, res) => {
       return res.status(422).json({ error: "Invalid email or password" });
     }
     const token = jwt.generateToken({ _id: user._id }); //in mongoDB _id is the unique id of the user
-    res.status(200).json({ token });
+    res.status(200).json({ token, type:user.type });
+    //in json files for eg we have to write type etc
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal Server Error" }); //when data entered is wrong format or incorrect
