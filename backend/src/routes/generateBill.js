@@ -13,6 +13,7 @@ const { get } = require("http");
 router.post("/generateBill", verifySignIn, async (req, res) => {
   try {
     const { _id, billDetails } = req.body;
+    console.log(billDetails);
     if (!_id || !billDetails) {
       return res
         .status(422)
@@ -35,13 +36,16 @@ router.post("/generateBill", verifySignIn, async (req, res) => {
       if (!item) {
         return res.status(422).json({ error: "Invalid item" });
       }
-      billDetails[i].unitPrice = item.price;
+      billDetails[i].name = item.name;
+      billDetails[i].itemPrice =
+        parseInt(item.price) * parseInt(billDetails[i].quantity);
+      billDetails[i].unitPrice = parseInt(item.price);
       if (item.quantity < billDetails[i].quantity) {
-        return res.status(422).json({ error: "Quantity not available" });
+        return res.status(422).json({ error: "Quantity not available" });``
       }
-    //   console.log(
-    //     totalPrice + " " + item.price + " " + billDetails[i].quantity
-    //   );
+      //   console.log(
+      //     totalPrice + " " + item.price + " " + billDetails[i].quantity
+      //   );
       totalPrice =
         parseInt(totalPrice) +
         parseInt(billDetails[i].quantity) * parseInt(item.price);

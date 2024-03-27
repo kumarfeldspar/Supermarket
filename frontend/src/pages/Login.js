@@ -11,6 +11,7 @@ function Login() {
         email,
         password,
       });
+      console.log("login successful");
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("type", response.data.type);
       //token saved in local storage

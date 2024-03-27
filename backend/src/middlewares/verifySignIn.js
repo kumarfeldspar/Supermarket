@@ -13,6 +13,7 @@ const verifySignIn = (req, res, next) => {
     req.body._id = verify._id; //adding a new parameter to the body
     next();
   } catch {
+    console.log("error");
     res.status(500).json({ error: "user not verified!!!" });
   }
 };

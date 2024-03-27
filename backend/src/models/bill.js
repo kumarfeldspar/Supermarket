@@ -14,7 +14,7 @@ const billSchema = new mongoose.Schema(
     },
     billDetails: [
       {
-        nameOfItem: {
+        name: {
           type: String,
           required: true,
         },
@@ -24,6 +24,7 @@ const billSchema = new mongoose.Schema(
         },
         unitPrice: {
           type: Number,
+          // required: true,
           min: 0,
         },
         quantity: {
@@ -33,7 +34,7 @@ const billSchema = new mongoose.Schema(
         },
         itemPrice: {
           type: Number,
-          required: true,
+          // required: true,
           min: 0,
           default: function () {
             return this.unitPrice * this.quantity;
