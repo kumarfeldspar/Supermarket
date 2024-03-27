@@ -17,7 +17,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/addItem" element={<AddItem />} />
-      <Route path="/employeeLogin" element={<EmployeeLogin />} />
+      <Route path="/employee" element={<EmployeeLogin />} />
       <Route path="/updateQuantity" element={<UpdateQuantity />} />
       <Route path="/clerk" element={<Clerk />} />
       <Route path="/trackItem" element={<TrackItem />} />

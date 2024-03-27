@@ -1,26 +1,35 @@
-/* Container styling */
-.employeeContainer {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 50px;
-    text-align: center;
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Button styling */
+.employeeContainer {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .employeeButton {
     display: block;
-    width: 200px;
-    margin: 20px auto;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
     color: #fff;
     background-color: #007bff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.employeeButton:last-child {
+    margin-bottom: 0;
 }
 
 .employeeButton:hover {
