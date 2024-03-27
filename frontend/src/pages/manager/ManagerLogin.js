@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./ManagerLogin.css"; // Import the CSS file
 
 function ManagerLogin() {
   return (
-    <div>
-      <h2>Manager Login</h2>
+    <div className="managerLoginContainer">
+      <h2 className="managerLoginTitle">Welcome Manager</h2>
       <Link to="/changePrice">
-        <button>Change Price</button>
+        <button className="managerLoginButton">Change Price</button>
       </Link>
       <Link to="/trackItem">
-        <button>Track Item</button>
+        <button className="managerLoginButton">Track Item</button>
       </Link>
     </div>
   );

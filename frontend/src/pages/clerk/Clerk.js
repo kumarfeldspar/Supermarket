@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./Clerk.css"; // Import the CSS file
 
 function Clerk() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -10,6 +11,7 @@ function Clerk() {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
+
   const handleClerk = () => {
     if (currentItemId.trim() !== "" && currentQuantity.trim() !== "") {
       const newBillDetail = {
@@ -21,17 +23,14 @@ function Clerk() {
       setCurrentQuantity("");
     }
   };
-  console.log(billDetails);
 
   const handleSubmit = async () => {
     try {
-      // Send billDetails data to server with token in headers
       await axios.post("http://localhost:5000/generateBill", {
         token: token,
         billDetails: billDetails,
       });
       console.log("Items added successfully");
-      // Clear billDetails after submission if needed
       setBillDetails([]);
     } catch (error) {
       console.error("Error adding items:", error);
@@ -39,26 +38,34 @@ function Clerk() {
   };
 
   return (
-    <div>
-      <h2>Add Items</h2>
+    <div className="clerkContainer">
+      <h2 className="clerkHeader">Add Items</h2>
       <div>
-        <label>Item ID:</label>
-        <input
-          type="text"
-          value={currentItemId}
-          onChange={(e) => setCurrentItemId(e.target.value)}
-        />
-        <label>Quantity:</label>
-        <input
-          type="number"
-          value={currentQuantity}
-          onChange={(e) => setCurrentQuantity(e.target.value)}
-        />
-        <button onClick={handleClerk}>Add</button>
+        <div>
+          <label>Item ID:</label>
+          <input
+            className="clerkInput"
+            type="text"
+            value={currentItemId}
+            onChange={(e) => setCurrentItemId(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Quantity:</label>
+          <input
+            className="clerkInput"
+            type="number"
+            value={currentQuantity}
+            onChange={(e) => setCurrentQuantity(e.target.value)}
+          />
+        </div>
+        <button className="clerkButton" onClick={handleClerk}>
+          Add
+        </button>
       </div>
       <div>
         <h3>Items List:</h3>
-        <ul>
+        <ul className="itemsList">
           {billDetails.map((detail, index) => (
             <li key={index}>
               Item ID: {detail.itemId}, Quantity: {detail.quantity}
@@ -66,11 +73,11 @@ function Clerk() {
           ))}
         </ul>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <button className="clerkButton" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 }
 
 export default Clerk;
-
-//to add when was bill generated and name of the buyer

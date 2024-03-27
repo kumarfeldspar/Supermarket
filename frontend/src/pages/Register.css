@@ -1,0 +1,45 @@
+.registerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registerBox {
+    width: 350px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.registerInput,
+.registerSelect {
+    width: calc(100% - 20px);
+    /* Adjusted width to accommodate padding */
+    margin-bottom: 15px;
+    padding: 8px;
+    /* Reduced padding */
+    font-size: 14px;
+    /* Reduced font size */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.registerButton {
+    width: calc(100% - 20px);
+    /* Adjusted width to accommodate padding */
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registerButton:hover {
+    background-color: #0056b3;
+}

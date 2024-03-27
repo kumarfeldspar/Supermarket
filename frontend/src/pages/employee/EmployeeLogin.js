@@ -1,11 +1,19 @@
 import React from "react";
+import "./EmployeeLogin.css"; // Import the CSS file
+
 function EmployeeLogin() {
   return (
-    <div>
-      <button onClick={() => (window.location.href = "/additem")}>
+    <div className="employeeContainer">
+      <button
+        className="employeeButton"
+        onClick={() => (window.location.href = "/additem")}
+      >
         Add Item
       </button>
-      <button onClick={() => (window.location.href = "/updatequantity")}>
+      <button
+        className="employeeButton"
+        onClick={() => (window.location.href = "/updatequantity")}
+      >
         Update Quantity
       </button>
     </div>

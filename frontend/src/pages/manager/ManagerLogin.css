@@ -1,0 +1,38 @@
+/* Container styling */
+.managerLoginContainer {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Title styling */
+.managerLoginTitle {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Button styling */
+.managerLoginButton {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.managerLoginButton:hover {
+    background-color: #0056b3;
+}

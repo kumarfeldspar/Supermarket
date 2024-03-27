@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./UpdateQuantity.css"; // Import the CSS file
 
 function UpdateQuantity() {
   const [itemId, setItemId] = useState("");
@@ -9,9 +10,9 @@ function UpdateQuantity() {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
+
   const handleUpdateQuantity = async () => {
     try {
-      // Add item to the database
       await axios.post("http://localhost:5000/updateQuantity", {
         token: token,
         itemId: itemId,
@@ -24,20 +25,24 @@ function UpdateQuantity() {
   };
 
   return (
-    <div>
+    <div className="updateQuantityContainer">
       <input
+        className="updateQuantityInput"
         type="number"
-        placeholder="ItemId"
+        placeholder="Item ID"
         value={itemId}
         onChange={(e) => setItemId(e.target.value)}
       />
       <input
+        className="updateQuantityInput"
         type="number"
         placeholder="Quantity"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       />
-      <button onClick={handleUpdateQuantity}>Add item </button>
+      <button className="updateQuantityButton" onClick={handleUpdateQuantity}>
+        Update Quantity
+      </button>
     </div>
   );
 }

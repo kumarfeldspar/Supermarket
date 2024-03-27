@@ -1,0 +1,28 @@
+/* Container styling */
+.employeeContainer {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+}
+
+/* Button styling */
+.employeeButton {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.employeeButton:hover {
+    background-color: #0056b3;
+}

@@ -23,7 +23,7 @@ app.use(require("./src/routes/changePrice"));
 app.use(require("./src/routes/addInventory"));
 app.use(require("./src/routes/updateQuantity"));
 app.use(require("./src/routes/generateBill"));
-app.use(require("./src/routes/items-sold"));
+app.use(require("./src/routes/itemsSold"));
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
