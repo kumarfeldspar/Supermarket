@@ -9,7 +9,6 @@ router.get("/items-sold", verifySignIn, async (req, res) => {
   console.log("here");
   const { _id, productId, startDate, endDate } = req.body;
   const user = await User.findById(_id);
-
   if (!user) {
     return res.status(422).json({ error: "Invalid user" });
   }

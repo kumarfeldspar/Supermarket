@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function AddItem() {
+function UpdateQuantity() {
   const [itemId, setItemId] = useState("");
   const [quantity, setQuantity] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -9,7 +9,7 @@ function AddItem() {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
-  const handleAddItem = async () => {
+  const handleUpdateQuantity = async () => {
     try {
       // Add item to the database
       await axios.post("http://localhost:5000/updateQuantity", {
@@ -37,9 +37,9 @@ function AddItem() {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       />
-      <button onClick={handleAddItem}>Add item </button>
+      <button onClick={handleUpdateQuantity}>Add item </button>
     </div>
   );
 }
 
-export default AddItem;
+export default UpdateQuantity;

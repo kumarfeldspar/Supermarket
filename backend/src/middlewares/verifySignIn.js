@@ -1,9 +1,11 @@
 const jwt = require("../helper/jwt");
 const verifySignIn = (req, res, next) => {
-  // console.log("first");
+  console.log("first");
   try {
     const { token } = req.body;
+    console.log(token);
     if (!token) {
+      //
       throw new Error();
     }
     const verify = jwt.verifyToken(token);

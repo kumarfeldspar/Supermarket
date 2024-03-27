@@ -6,6 +6,9 @@ import AddItem from "./pages/employee/AddItem";
 import EmployeeLogin from "./pages/employee/EmployeeLogin";
 import UpdateQuantity from "./pages/employee/UpdateQuantity";
 import Clerk from "./pages/clerk/Clerk";
+import TrackItem from "./pages/manager/TrackItem";
+import ChangePrice from "./pages/manager/ChangePrice";
+import ManagerLogin from "./pages/manager/ManagerLogin";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
       <Route path="/employeeLogin" element={<EmployeeLogin />} />
       <Route path="/updateQuantity" element={<UpdateQuantity />} />
       <Route path="/clerk" element={<Clerk />} />
+      <Route path="/trackItem" element={<TrackItem />} />
+      <Route path="/changePrice" element={<ChangePrice />} />
+      <Route path="/manager" element={<ManagerLogin />} />
     </Routes>
   );
 }
