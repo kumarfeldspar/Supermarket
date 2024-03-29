@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,44 @@ import Unauthorized from "./pages/Unauthorized.js";
 import "./Responsive.js";
 
 function App() {
+  useEffect(() => {
+    const menuBar = document.querySelector("#content nav .bx.bx-menu");
+    const sidebar = document.getElementById("sidebar");
+
+    const handleClick = () => {
+      if (!sidebar) return;
+      sidebar.classList.toggle("hide");
+    };
+
+    if (menuBar) {
+      menuBar.addEventListener("click", handleClick);
+    }
+
+    const switchMode = document.getElementById("switch-mode");
+
+    const handleModeChange = () => {
+      if (switchMode.checked) {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
+    };
+
+    if (switchMode) {
+      switchMode.addEventListener("change", handleModeChange);
+    }
+    /*
+to stop rerendering we use the below function
+*/
+    return () => {
+      if (menuBar) {
+        menuBar.removeEventListener("click", handleClick);
+      }
+      if (switchMode) {
+        switchMode.removeEventListener("change", handleModeChange);
+      }
+    };
+  }, []);
   return (
     <Routes>
       <Route path="/" element={<MainRouteLayout />}>

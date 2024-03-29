@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify"; // Import toast
+import { toast, ToastContainer } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import logo from "../img/logo.png";
@@ -46,6 +46,7 @@ function Login() {
 
   return (
     <div className="signIn">
+      <ToastContainer />
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
           {/* Wrap with form tag and set onSubmit to handleLogin */}
@@ -78,7 +79,7 @@ function Login() {
             type="submit"
             id="login-btn"
             onClick={(e) => {
-              handleLogin(e); 
+              handleLogin(e);
             }}
             value="Sign In"
           />

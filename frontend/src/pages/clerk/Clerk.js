@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Clerk.css";
 import jsPDF from "jspdf"; // Import jsPDF directly
+import "jspdf-autotable";
 
 function Clerk() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -36,8 +37,37 @@ function Clerk() {
       setBillDetails([]);
 
       const doc = new jsPDF();
+      console.log(response.data);
+      //left width top width
       doc.text("Bill Number: " + response.data.billNumber, 10, 10);
       doc.text("Total Amount: " + response.data.totalAmount, 10, 20);
+
+      const headers = [
+        "Item Name",
+        "Item ID",
+        "Unit Price",
+        "Quantity",
+        "Item Price",
+      ];
+      const tableData = [];
+      response.data.billDetails.forEach((item) => {
+        tableData.push([
+          item.name,
+          item.itemId,
+          item.unitPrice,
+          item.quantity,
+          item.itemPrice,
+        ]);
+      });
+
+      doc.autoTable({
+        startY: 30,
+        head: [headers],
+        body: tableData,
+        theme: "grid",
+        styles: { cellPadding: 1.5, fontSize: 10, textColor: [0, 0, 0] },
+      });
+
       doc.save("bill.pdf");
     } catch (error) {
       console.error("Error adding items:", error);
