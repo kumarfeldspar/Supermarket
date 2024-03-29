@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import "./Register.css";
 import logo from "../img/logo.png";
 import { toast, ToastContainer } from "react-toastify";
-import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
@@ -34,7 +33,7 @@ function Register() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
+        name: name,                     
         type: type,
         email: email,
         password: password,

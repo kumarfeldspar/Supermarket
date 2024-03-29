@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import { toast } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
+import logo from "../img/logo.png";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
     try {
       const response = await axios.post("http://localhost:5000/login", {
         email,
@@ -42,31 +45,52 @@ function Login() {
   };
 
   return (
-    <>
-      <div className="loginContainer">
-        <h2>Login</h2> {/* "Login" text placed on top */}
-        <div className="loginBox">
+    <div className="signIn">
+      <div>
+        <form className="loginForm" onSubmit={handleLogin}>
+          {/* Wrap with form tag and set onSubmit to handleLogin */}
+          <img className="signUpLogo" src={logo} alt="" />
+          <div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
           <input
-            className="loginInput"
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="submit"
+            id="login-btn"
+            onClick={(e) => {
+              handleLogin(e); 
+            }}
+            value="Sign In"
           />
-          <input
-            className="loginInput"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="loginButton" onClick={handleLogin}>
-            Login
-          </button>
-        </div>
+        </form>
+        {/* <div className="loginForm2">
+          Don't have an account ?
+          <Link to="/signup">
+            <span style={{ color: "blue", cursor: "pointer" }}>Sign Up</span>
+          </Link>
+        </div> */}
       </div>
-      <ToastContainer /> {/* Place ToastContainer at top level */}
-    </>
+    </div>
   );
 }
 
