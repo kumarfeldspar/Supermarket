@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Clerk.css"; // Import the CSS file
+import "./Clerk.css";
+import jsPDF from "jspdf"; // Import jsPDF directly
 
 function Clerk() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -26,12 +27,18 @@ function Clerk() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:5000/generateBill", {
+      const response = await axios.post("http://localhost:5000/generateBill", {
         token: token,
         billDetails: billDetails,
       });
+
       console.log("Items added successfully");
       setBillDetails([]);
+
+      const doc = new jsPDF();
+      doc.text("Bill Number: " + response.data.billNumber, 10, 10);
+      doc.text("Total Amount: " + response.data.totalAmount, 10, 20);
+      doc.save("bill.pdf");
     } catch (error) {
       console.error("Error adding items:", error);
     }

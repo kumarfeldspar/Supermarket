@@ -9,7 +9,7 @@ function ChangePrice() {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-  }, []);
+  }, []);   
 
   const handleChangePrice = async () => {
     try {

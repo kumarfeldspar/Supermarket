@@ -9,6 +9,7 @@ const jwt = require("../helper/jwt");
 const verifySignIn = require("../middlewares/verifySignIn");
 const { configDotenv } = require("dotenv");
 const { get } = require("http");
+const { jsPDF } = require("jspdf"); // will automatically load the node version
 
 router.post("/generateBill", verifySignIn, async (req, res) => {
   try {
@@ -41,7 +42,8 @@ router.post("/generateBill", verifySignIn, async (req, res) => {
         parseInt(item.price) * parseInt(billDetails[i].quantity);
       billDetails[i].unitPrice = parseInt(item.price);
       if (item.quantity < billDetails[i].quantity) {
-        return res.status(422).json({ error: "Quantity not available" });``
+        return res.status(422).json({ error: "Quantity not available" });
+        ``;
       }
       //   console.log(
       //     totalPrice + " " + item.price + " " + billDetails[i].quantity
