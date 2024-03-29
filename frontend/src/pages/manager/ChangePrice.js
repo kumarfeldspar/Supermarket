@@ -25,8 +25,11 @@ function ChangePrice() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("token") || localStorage.getItem("type") !== "manager") {
-      window.location.href = "/logout";
+    if (
+      !localStorage.getItem("token") ||
+      localStorage.getItem("type") !== "manager"
+    ) {
+      window.location.href = "/unauthorized";
     }
   }, []);
 

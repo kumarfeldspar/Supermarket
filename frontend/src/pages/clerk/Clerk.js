@@ -37,6 +37,15 @@ function Clerk() {
     }
   };
 
+  useEffect(() => {
+    if (
+      !localStorage.getItem("token") ||
+      localStorage.getItem("type") !== "clerk"
+    ) {
+      window.location.href = "/unauthorized";
+    }
+  }, []);
+
   return (
     <div className="clerkContainer">
       <h2 className="clerkHeader">Add Items</h2>

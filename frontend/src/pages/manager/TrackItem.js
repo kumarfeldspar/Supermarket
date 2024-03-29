@@ -27,6 +27,15 @@ function TrackItem() {
     }
   };
 
+  useEffect(() => {
+    if (
+      !localStorage.getItem("token") ||
+      localStorage.getItem("type") !== "manager"
+    ) {
+      window.location.href = "/unauthorized";
+    }
+  }, []);
+
   return (
     <>
       <div className="trackItemContainer">

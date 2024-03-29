@@ -12,7 +12,7 @@ function Logout() {
   return (
     <div>
       <h1>Logout</h1>
-      <p>Thank you for using our service. Please fuck off</p>
+      <p>Thank you for using our service.</p>
     </div>
   );
 }

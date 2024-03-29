@@ -31,6 +31,15 @@ function AddItem() {
     }
   };
 
+  useEffect(() => {
+    if (
+      !localStorage.getItem("token") ||
+      localStorage.getItem("type") !== "employee"
+    ) {
+      window.location.href = "/unauthorized";
+    }
+  }, []);
+
   return (
     <div className="addItemContainer">
       <input

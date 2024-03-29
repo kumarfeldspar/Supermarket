@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,6 +14,7 @@ import ChangePrice from "./pages/manager/ChangePrice";
 import ManagerLogin from "./pages/manager/ManagerLogin";
 import MainRouteLayout from "./components/MainRouteLayout";
 import Logout from "./pages/Logout";
+import Unauthorized from "./pages/Unauthorized.js";
 import "./Responsive.js";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/changePrice" element={<ChangePrice />} />
         <Route path="/manager" element={<ManagerLogin />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Route>
     </Routes>
   );
