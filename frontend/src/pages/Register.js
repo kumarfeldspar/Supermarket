@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import "./Register.css";
-import { toast } from "react-toastify";
+import logo from "../img/logo.png";
+import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
@@ -10,72 +12,125 @@ function Register() {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
 
-  // Toast functions
-  const notifySuccess = (msg) => toast.success(msg);
-  const notifyError = (msg) => toast.error(msg);
+  const notifyA = (msg) => toast.error(msg);
+  const notifyB = (msg) => toast.success(msg);
 
-  const handleRegister = async () => {
-    if (!email || !password || !name || !type) {
-      notifyError("Please fill in all fields");
-      return;
-    }
+  const postData = () => {
+    //checking email
+    // if (!emailRegex.test(email)) {
+    //   notifyA("Invalid email");
+    //   return;
+    // } else if (!passRegex.test(password)) {
+    //   notifyA(
+    //     "Password must contain at least 8 characters, including at least 1 number and 1 includes both lower and uppercase letters and special characters for example #,?,!"
+    //   );
+    //   return;
+    // }
 
-    try {
-      await axios.post("http://localhost:5000/signup", {
-        name,
-        email,
-        password,
-        type,
+    // Sending data to server
+    fetch("http://localhost:5000/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        type: type,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          notifyA(data.error);
+        } else {
+          notifyB(data.message);
+          // navigate("/login");
+        }
+        console.log(data);
       });
-      notifySuccess("Registration successful");
-      console.log("Registered successfully");
-    } catch (error) {
-      notifyError("Registration failed. Please try again.");
-      console.log(error);
-    }
   };
 
   return (
-    <div className="registerContainer">
-      {" "}
-      {/* Add className for styling */}
-      <div className="registerBox">
-        {" "}
-        {/* Enclose fields inside a div */}
-        <input
-          className="registerInput"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="registerInput"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="registerInput"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <select
-          className="registerSelect"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          <option value="">Select Type</option>
-          <option value="employee">Employee</option>
-          <option value="manager">Manager</option>
-          <option value="clerk">Clerk</option>
-        </select>
-        <button className="registerButton" onClick={handleRegister}>
-          Register
-        </button>
+    <div className="signUp">
+      <ToastContainer />
+      <div className="form-container">
+        <div className="form">
+          <img className="signUpLogo" src={logo} alt="" />
+          <p className="loginPara">
+            Sign up to for your Supermarket <br />
+          </p>
+          <div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="type"
+              id="type"
+              placeholder="type"
+              value={type}
+              onChange={(e) => {
+                setType(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <p
+            className="loginPara"
+            style={{ fontSize: "12px", margin: "3px 0px" }}
+          >
+            By signing up, you agree to out Terms, <br /> privacy policy and
+            cookies policy.
+          </p>
+          <input
+            type="submit"
+            id="submit-btn"
+            value="Sign Up"
+            onClick={() => {
+              postData();
+            }}
+          />
+        </div>
+        {/* <div className="form2">
+          Already have an account ?
+          <Link to="/signin">
+            <span style={{ color: "blue", cursor: "pointer" }}>Sign In</span>
+          </Link>
+        </div> */}
       </div>
     </div>
   );

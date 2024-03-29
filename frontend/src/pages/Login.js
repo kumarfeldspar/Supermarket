@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
 function Login() {
@@ -16,7 +18,6 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("type", response.data.type);
 
-      // Redirect based on user type
       switch (response.data.type) {
         case "manager":
           window.location.href = "/manager"; // Redirect to manager route
@@ -30,7 +31,12 @@ function Login() {
         default:
           console.log("Unknown user type");
       }
+
+      // Show success toast message
+      toast.success("Login successful!");
     } catch (error) {
+      // Show error toast message
+      toast.error("Login failed. Please check your credentials.");
       console.log(error);
     }
   };
@@ -38,61 +44,28 @@ function Login() {
   return (
     <>
       <div className="loginContainer">
-      <div className="loginBox">
-        <input
-          className="loginInput"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="loginInput"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="loginButton" onClick={handleLogin}>
-          Login
-        </button>
-      </div>
-    </div>
-      {/* <div className="table-data">
-        <div className="order">
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    className="loginInput"
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <input
-                  className="loginInput"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </tr>
-              <tr>
-                <td>
-                  <button className="loginButton" onClick={handleLogin}>
-                    Login
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <h2>Login</h2> {/* "Login" text placed on top */}
+        <div className="loginBox">
+          <input
+            className="loginInput"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="loginInput"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="loginButton" onClick={handleLogin}>
+            Login
+          </button>
         </div>
-      </div> */}
+      </div>
+      <ToastContainer /> {/* Place ToastContainer at top level */}
     </>
   );
 }

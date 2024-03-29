@@ -1,45 +1,73 @@
-.registerContainer {
+.signUp {
+    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB1lN1hGZAj0MpZ1ZoN7tt7q38JyzTvjmSMQ&usqp=CAU"); */
+    background-size: cover;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
-.registerBox {
-    width: 350px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+.form {
+    background-color: #fff;
+    /* //make horizontal padding 34px and vertical padding 0px */
+    padding: 10px 50px;
+    border: 1px solid rgb(129, 121, 121);
+    border-radius: 1px;
+    display: block;
+    
+
 }
 
-.registerInput,
-.registerSelect {
-    width: calc(100% - 20px);
-    /* Adjusted width to accommodate padding */
-    margin-bottom: 15px;
-    padding: 8px;
-    /* Reduced padding */
-    font-size: 14px;
-    /* Reduced font size */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.signUpLogo {
+    width: 115px;
+    object-fit: contain;
+    padding: 10px 0px;
+    align-items: center;
+    display: block;
+    margin: auto;
+    justify-content: center;
 }
 
-.registerButton {
-    width: calc(100% - 20px);
-    /* Adjusted width to accommodate padding */
-    padding: 10px;
+.loginPara {
+    color: rgba(var(--f52, 142, 142, 142), 1);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0px 40px 20px 40px;
+}
+
+input {
+    padding: 5px;
+    margin: 3px 0px;
+    outline: none;
     font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.registerButton:hover {
-    background-color: #0056b3;
+.form>div {
+    width: 80%;
+    margin: auto;
 }
+
+#submit-btn {
+    background-color: #1773EA;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    width: 80%;
+        display: block;
+        margin: auto;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+/* .form2 {
+    background-color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid rgb(129, 121, 121);
+    border-radius: 1px;
+} */
