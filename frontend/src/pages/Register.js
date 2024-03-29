@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import "./Register.css"; // Import CSS file
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -10,10 +11,15 @@ function Register() {
   const [type, setType] = useState("");
 
   // Toast functions
-  const notifyA = (msg) => toast.success(msg);
-  const notifyB = (msg) => toast.error(msg);
+  const notifySuccess = (msg) => toast.success(msg);
+  const notifyError = (msg) => toast.error(msg);
 
   const handleRegister = async () => {
+    if (!email || !password || !name || !type) {
+      notifyError("Please fill in all fields");
+      return;
+    }
+
     try {
       await axios.post("http://localhost:5000/signup", {
         name,
@@ -21,10 +27,10 @@ function Register() {
         password,
         type,
       });
-      notifyA("Registration successful");
+      notifySuccess("Registration successful");
       console.log("Registered successfully");
     } catch (error) {
-      notifyB("Registration failed. Please try again.");
+      notifyError("Registration failed. Please try again.");
       console.log(error);
     }
   };
@@ -62,6 +68,7 @@ function Register() {
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
+          <option value="">Select Type</option>
           <option value="employee">Employee</option>
           <option value="manager">Manager</option>
           <option value="clerk">Clerk</option>

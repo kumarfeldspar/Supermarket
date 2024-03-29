@@ -2,6 +2,7 @@ const jwt = require("../helper/jwt");
 const verifySignIn = (req, res, next) => {
   console.log("first");
   try {
+    console.log(req.body);
     const { token } = req.body;
     console.log(token);
     if (!token) {
@@ -14,8 +15,8 @@ const verifySignIn = (req, res, next) => {
     }
     req.body._id = verify._id; //adding a new parameter to the body
     next();
-  } catch {
-    console.log("error");
+  } catch(err) {
+    console.log(err);
     res.status(500).json({ error: "user not verified!!!" });
   }
 };

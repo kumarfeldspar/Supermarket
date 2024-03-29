@@ -36,7 +36,8 @@ function Login() {
   };
 
   return (
-    <div className="loginContainer">
+    <>
+      <div className="loginContainer">
       <div className="loginBox">
         <input
           className="loginInput"
@@ -57,6 +58,42 @@ function Login() {
         </button>
       </div>
     </div>
+      {/* <div className="table-data">
+        <div className="order">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    className="loginInput"
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <input
+                  className="loginInput"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </tr>
+              <tr>
+                <td>
+                  <button className="loginButton" onClick={handleLogin}>
+                    Login
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> */}
+    </>
   );
 }
 

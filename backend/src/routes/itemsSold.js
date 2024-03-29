@@ -5,7 +5,7 @@ const Bill = require("../models/bill");
 const verifySignIn = require("../middlewares/verifySignIn");
 
 // Route to get the quantity of items sold for a specific product ID within a date range
-router.get("/itemsSold", verifySignIn, async (req, res) => {
+router.post("/itemsSold", verifySignIn, async (req, res) => {
   console.log("here");
   const { _id, productId, startDate, endDate } = req.body;
   const user = await User.findById(_id);
