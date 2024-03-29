@@ -26,7 +26,7 @@ li {
   --dark: #342e37;
   --red: #db504a;
   --yellow: #ffce26;
-  --light-yellow: #fff2c6;
+  --light-yellow: #8cc97e;
   --orange: #fd7238;
   --light-orange: #ffe0d3;
 }
@@ -42,8 +42,27 @@ body.dark {
 }
 
 body {
-  background: var(--grey);
+  /* background: linear-gradient(#e66465, #9198e5); */
+  /* background: #cee0cb; */
+  /* background: linear-gradient(217deg, rgba(80, 26, 115, 0.8), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(151, 228, 151, 0.8), rgba(187, 200, 187, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%); */
+
+      background:linear-gradient(45deg,#d2001a,#7462ff,#f48e21,#23d5ab);
+      background-size:300% 300% ;
+      animation: colors 12s ease infinite;
   overflow-x: hidden;
+}
+@keyframes colors {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* SIDEBAR */

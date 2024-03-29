@@ -2,7 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 50vh 50vh; */
+    /* how to set the container size 50% of current both height and width */
+    height: 50vh;
+    width: 50vw;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #bfd8e4;
 }
 
 .employeeContainer {

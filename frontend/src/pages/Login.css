@@ -8,9 +8,11 @@
 }
 
 .loginForm {
-    background-color: #ffffff4d;
+    background-color: #bfd8e4;
     padding: 30px;
     border: 1px solid rgb(129, 121, 121);
+    /* //make the box a bit down; */
+    margin-top: 35px;
     border-radius: 1px;
 }
 
