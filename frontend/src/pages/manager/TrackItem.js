@@ -15,12 +15,15 @@ function TrackItem() {
 
   const handleTrackItem = async () => {
     try {
-      const resopnse = await axios.post("http://localhost:5000/itemsSold", {
-        token: token, // Assuming this is the user ID
-        productId: itemId,
-        startDate: startDate,
-        endDate: endDate,
-      });
+      const resopnse = await axios.post(
+        "https://supermarket-automation.onrender.com/itemsSold",
+        {
+          token: token, // Assuming this is the user ID
+          productId: itemId,
+          startDate: startDate,
+          endDate: endDate,
+        }
+      );
       setData(resopnse.data);
     } catch (error) {
       console.log(error);

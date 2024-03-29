@@ -9,15 +9,18 @@ function ChangePrice() {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-  }, []);   
+  }, []);
 
   const handleChangePrice = async () => {
     try {
-      await axios.post("http://localhost:5000/changePrice", {
-        token: token,
-        itemId: itemId,
-        newPrice: newPrice,
-      });
+      await axios.post(
+        "https://supermarket-automation.onrender.com/changePrice",
+        {
+          token: token,
+          itemId: itemId,
+          newPrice: newPrice,
+        }
+      );
       console.log("Price updated successfully");
     } catch (error) {
       console.log(error);

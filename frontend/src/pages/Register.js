@@ -27,13 +27,13 @@ function Register() {
     // }
 
     // Sending data to server
-    fetch("http://localhost:5000/signup", {
+    fetch("https://supermarket-automation.onrender.com/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,                     
+        name: name,
         type: type,
         email: email,
         password: password,
