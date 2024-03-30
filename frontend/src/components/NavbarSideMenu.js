@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
 
 const NavbarSideMenu = () => {
-  const [loginToken, setLoginToken] = useState(null);
+  const { isLoggined } = useContext(GlobalContext);
   useEffect(() => {
-    setLoginToken(localStorage.getItem("token"));
-  }, [loginToken]);
+    console.log("isLoggedin", isLoggined);
+  }, [isLoggined]);
 
   return (
     <>
       <ul className="side-menu">
-        {loginToken && (
+        {isLoggined && (
           <li>
             <Link to="/logout" className="logout">
               <i className="bx bxs-log-out-circle"></i>
@@ -18,7 +19,7 @@ const NavbarSideMenu = () => {
             </Link>
           </li>
         )}
-        {!loginToken && (
+        {!isLoggined && (
           <>
             <li>
               <Link to="/login" className="login">

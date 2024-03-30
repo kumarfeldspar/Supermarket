@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./AddItem.css"; // Import the CSS file
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function AddItem() {
   const navigate = useNavigate();
@@ -9,41 +10,30 @@ function AddItem() {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token"));
 
+  const { type, isLoggined, token } = useContext(GlobalContext);
   useEffect(() => {
-    // Update the token when it changes in localStorage
-    setToken(localStorage.getItem("token"));
-  }, []); // This effect runs only once, after the initial render
+    if (!isLoggined || type !== "employee") {
+      navigate("/unauthorized");
+    }
+  }, []);
 
   const handleAddItem = async () => {
     try {
       // Add item to the database
-      await axios.post(
-        "https://supermarket-automation.onrender.com/addInventory",
-        {
-          token: token,
-          name: itemName,
-          price: price,
-          quantity: quantity,
-          photoUrl: photoUrl,
-        }
-      );
+      await axios.post("http://locahost:5000/addInventory", {
+        token: token,
+        name: itemName,
+        price: price,
+        quantity: quantity,
+        photoUrl: photoUrl,
+      });
       console.log("Item added successfully");
       // You may want to do something with the response here if needed
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("type") !== "employee"
-    ) {
-      navigate("/unauthorized");
-    }
-  }, []);
 
   return (
     <div className="addItemContainer">

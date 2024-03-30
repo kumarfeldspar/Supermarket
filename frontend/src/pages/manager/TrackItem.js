@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./TrackItem.css";
+import { GlobalContext } from "../../context/GlobalContext";
 const { useNavigate } = require("react-router-dom");
 
 function TrackItem() {
@@ -8,38 +9,28 @@ function TrackItem() {
   const [itemId, setItemId] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token"));
   const [data, setData] = useState(null);
 
+  const { type, isLoggined, token } = useContext(GlobalContext);
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    if (!isLoggined || type !== "manager") {
+      navigate("/unauthorized");
+    }
   }, []);
 
   const handleTrackItem = async () => {
     try {
-      const resopnse = await axios.post(
-        "https://supermarket-automation.onrender.com/itemsSold",
-        {
-          token: token, // Assuming this is the user ID
-          productId: itemId,
-          startDate: startDate,
-          endDate: endDate,
-        }
-      );
+      const resopnse = await axios.post("http://locahost:5000/itemsSold", {
+        token: token, // Assuming this is the user ID
+        productId: itemId,
+        startDate: startDate,
+        endDate: endDate,
+      });
       setData(resopnse.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("type") !== "manager"
-    ) {
-      navigate("/unauthorized");
-    }
-  }, []);
 
   return (
     <>

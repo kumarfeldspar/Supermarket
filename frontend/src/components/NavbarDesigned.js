@@ -1,14 +1,10 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect ,useState,useContext} from "react";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
 
 
 const NavbarDesigned = ({ children }) => {
-  const [user, setUser] = useState("");
-  const [loginToken, setLoginToken] = useState(null);
-  useEffect(() => {
-    setUser(localStorage.getItem("type"));
-    setLoginToken(localStorage.getItem("token"));
-  }, [user]);
+  const {type,token,isLoggined} = useContext(GlobalContext);
   return (
     <>
       <section id="content">
@@ -30,8 +26,8 @@ const NavbarDesigned = ({ children }) => {
               <i className="bx bx-user"></i>
             </Link>
             <Link to={`/`} className="profile">
-              {loginToken &&(
-                user.toUpperCase()
+              {isLoggined &&(
+                type.toUpperCase()
               )}
               {/* <img src="img/people.png" /> */}
             </Link>

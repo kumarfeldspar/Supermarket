@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Clerk.css";
 import jsPDF from "jspdf"; // Import jsPDF directly
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function Clerk() {
-
-  const navigate=useNavigate();
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const navigate = useNavigate();
   const [billDetails, setBillDetails] = useState([]);
   const [currentItemId, setCurrentItemId] = useState("");
   const [currentQuantity, setCurrentQuantity] = useState("");
 
+  const { type, isLoggined, token } = useContext(GlobalContext);
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    if (!isLoggined || type !== "clerk") {
+      navigate("/unauthorized");
+    }
   }, []);
 
   const handleClerk = () => {
@@ -31,13 +33,10 @@ function Clerk() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "https://supermarket-automation.onrender.com/generateBill",
-        {
-          token: token,
-          billDetails: billDetails,
-        }
-      );
+      const response = await axios.post("http://locahost:5000/generateBill", {
+        token: token,
+        billDetails: billDetails,
+      });
 
       console.log("Items added successfully");
       setBillDetails([]);
@@ -79,15 +78,6 @@ function Clerk() {
       console.error("Error adding items:", error);
     }
   };
-
-  useEffect(() => {
-    if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("type") !== "clerk"
-    ) {
-      navigate("/unauthorized");
-    }
-  }, []);
 
   return (
     <div className="clerkContainer">

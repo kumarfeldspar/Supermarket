@@ -15,6 +15,7 @@ import MainRouteLayout from "./components/MainRouteLayout";
 import Logout from "./pages/Logout";
 import Unauthorized from "./pages/Unauthorized.js";
 import "./Responsive.js";
+import HomePage from "./pages/HomePage";
 
 function App() {
   useEffect(() => {
@@ -58,7 +59,7 @@ to stop rerendering we use the below function
   return (
     <Routes>
       <Route path="/" element={<MainRouteLayout />}>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/addItem" element={<AddItem />} />

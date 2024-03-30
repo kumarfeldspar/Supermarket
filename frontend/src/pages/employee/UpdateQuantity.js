@@ -1,41 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./UpdateQuantity.css"; // Import the CSS file
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function UpdateQuantity() {
   const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token"));
 
+  const { type, isLoggined, token } = useContext(GlobalContext);
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    if (!isLoggined || type !== "employee") {
+      navigate("/unauthorized");
+    }
   }, []);
 
   const handleUpdateQuantity = async () => {
     try {
-      await axios.post(
-        "https://supermarket-automation.onrender.com/updateQuantity",
-        {
-          token: token,
-          itemId: itemId,
-          quantity: quantity,
-        }
-      );
+      await axios.post("http://locahost:5000/updateQuantity", {
+        token: token,
+        itemId: itemId,
+        quantity: quantity,
+      });
       console.log("Quantity updated successfully");
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("type") !== "employee"
-    ) {
-      navigate("/unauthorized");
-    }
-  }, []);
+
   return (
     <div className="updateQuantityContainer">
       <input

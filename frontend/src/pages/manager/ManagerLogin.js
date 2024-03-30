@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import "./ManagerLogin.css"; // Import the CSS file
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function ManagerLogin() {
   const navigate = useNavigate();
+  const { type, isLoggined } = useContext(GlobalContext)
   useEffect(() => {
     if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("type") !== "manager"
+      !isLoggined || type !== "manager"
     ) {
       navigate("/unauthorized");
     }

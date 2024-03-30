@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./ChangePrice.css"; // Import the CSS file
-const {useNavigate} = require("react-router-dom");
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function ChangePrice() {
   const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [newPrice, setNewPrice] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+  const { token } = useContext(GlobalContext);
 
   const handleChangePrice = async () => {
     try {
-      await axios.post(
-        "https://supermarket-automation.onrender.com/changePrice",
-        {
-          token: token,
-          itemId: itemId,
-          newPrice: newPrice,
-        }
-      );
+      await axios.post("http://locahost:5000/changePrice", {
+        token: token,
+        itemId: itemId,
+        newPrice: newPrice,
+      });
       console.log("Price updated successfully");
     } catch (error) {
       console.log(error);

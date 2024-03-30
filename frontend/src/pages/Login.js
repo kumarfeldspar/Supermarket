@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import logo from "../img/logo.png";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
 
 function Login() {
+  const { login } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,18 +16,14 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     try {
-      const response = await axios.post(
-        "https://supermarket-automation.onrender.com/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://locahost:5000/login", {
+        email,
+        password,
+      });
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("type", response.data.type);
-
-    
+      login({ token: response.data.token, type: response.data.type });
 
       if (response.data.type === "manager") {
         // <Link to="/manager" />;
