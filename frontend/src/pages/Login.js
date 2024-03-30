@@ -4,9 +4,10 @@ import { toast, ToastContainer } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import logo from "../img/logo.png";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,18 +25,19 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("type", response.data.type);
 
-      switch (response.data.type) {
-        case "manager":
-          window.location.href = "/manager"; // Redirect to manager route
-          break;
-        case "employee":
-          window.location.href = "/employee"; // Redirect to employee route
-          break;
-        case "clerk":
-          window.location.href = "/clerk"; // Redirect to clerk route
-          break;
-        default:
-          console.log("Unknown user type");
+    
+
+      if (response.data.type === "manager") {
+        // <Link to="/manager" />;
+        navigate("/manager");
+      } else if (response.data.type === "employee") {
+        // <Link to="/employee" />;
+        navigate("/employee");
+      } else if (response.data.type === "clerk") {
+        // <Link to="/clerk" />;
+        navigate("/clerk");
+      } else {
+        console.log("Unknown user type");
       }
 
       // Show success toast message

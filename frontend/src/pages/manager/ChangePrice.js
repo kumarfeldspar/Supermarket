@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ChangePrice.css"; // Import the CSS file
+const {useNavigate} = require("react-router-dom");
 
 function ChangePrice() {
+  const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -32,7 +34,7 @@ function ChangePrice() {
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "manager"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
 

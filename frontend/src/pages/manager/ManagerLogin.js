@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ManagerLogin.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 function ManagerLogin() {
+  const navigate = useNavigate();
   useEffect(() => {
     if (
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "manager"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
 

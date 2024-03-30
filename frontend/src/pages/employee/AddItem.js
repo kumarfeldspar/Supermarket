@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddItem.css"; // Import the CSS file
+import {useNavigate} from "react-router-dom";
 
 function AddItem() {
+  const navigate = useNavigate();
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -39,7 +41,7 @@ function AddItem() {
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "employee"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
 

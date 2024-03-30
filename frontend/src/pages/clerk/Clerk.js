@@ -3,8 +3,11 @@ import axios from "axios";
 import "./Clerk.css";
 import jsPDF from "jspdf"; // Import jsPDF directly
 import "jspdf-autotable";
+import { useNavigate } from "react-router-dom";
 
 function Clerk() {
+
+  const navigate=useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [billDetails, setBillDetails] = useState([]);
   const [currentItemId, setCurrentItemId] = useState("");
@@ -82,7 +85,7 @@ function Clerk() {
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "clerk"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
 

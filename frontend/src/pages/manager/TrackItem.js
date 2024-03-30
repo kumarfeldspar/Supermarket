@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TrackItem.css";
+const { useNavigate } = require("react-router-dom");
 
 function TrackItem() {
+  const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -35,7 +37,7 @@ function TrackItem() {
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "manager"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
 

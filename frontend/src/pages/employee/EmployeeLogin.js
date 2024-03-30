@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import "./EmployeeLogin.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 function EmployeeLogin() {
+  const navigate = useNavigate();
   useEffect(() => {
     if (
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "employee"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
   return (
@@ -15,13 +17,13 @@ function EmployeeLogin() {
       <div className="employeeContainer">
         <button
           className="employeeButton"
-          onClick={() => (window.location.href = "/additem")}
+          onClick={() => (navigate("/additem"))}
         >
           Add Item
         </button>
         <button
           className="employeeButton"
-          onClick={() => (window.location.href = "/updatequantity")}
+          onClick={() => (navigate("/updateitem"))}
         >
           Update Quantity
         </button>

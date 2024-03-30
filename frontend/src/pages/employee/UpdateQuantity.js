@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./UpdateQuantity.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 function UpdateQuantity() {
+  const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [quantity, setQuantity] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -31,7 +33,7 @@ function UpdateQuantity() {
       !localStorage.getItem("token") ||
       localStorage.getItem("type") !== "employee"
     ) {
-      window.location.href = "/unauthorized";
+      navigate("/unauthorized");
     }
   }, []);
   return (
