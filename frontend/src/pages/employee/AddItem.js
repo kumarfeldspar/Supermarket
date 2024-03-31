@@ -21,13 +21,16 @@ function AddItem() {
   const handleAddItem = async () => {
     try {
       // Add item to the database
-      await axios.post("http://locahost:5000/addInventory", {
-        token: token,
-        name: itemName,
-        price: price,
-        quantity: quantity,
-        photoUrl: photoUrl,
-      });
+      await axios.post(
+        "https://supermarket-automation.onrender.com/addInventory",
+        {
+          token: token,
+          name: itemName,
+          price: price,
+          quantity: quantity,
+          photoUrl: photoUrl,
+        }
+      );
       console.log("Item added successfully");
       // You may want to do something with the response here if needed
     } catch (error) {

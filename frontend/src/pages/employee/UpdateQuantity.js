@@ -18,11 +18,14 @@ function UpdateQuantity() {
 
   const handleUpdateQuantity = async () => {
     try {
-      await axios.post("http://locahost:5000/updateQuantity", {
-        token: token,
-        itemId: itemId,
-        quantity: quantity,
-      });
+      await axios.post(
+        "https://supermarket-automation.onrender.com/updateQuantity",
+        {
+          token: token,
+          itemId: itemId,
+          quantity: quantity,
+        }
+      );
       console.log("Quantity updated successfully");
     } catch (error) {
       console.log(error);
