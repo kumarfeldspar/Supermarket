@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./UpdateQuantity.css"; // Import the CSS file
+import { toast, ToastContainer } from "react-toastify"; // Import toast
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -23,6 +25,7 @@ function UpdateQuantity() {
         itemId: itemId,
         quantity: quantity,
       });
+      toast.success("Item added successfully");
       console.log("Quantity updated successfully");
     } catch (error) {
       console.log(error);
@@ -48,6 +51,7 @@ function UpdateQuantity() {
       <button className="updateQuantityButton" onClick={handleUpdateQuantity}>
         Update Quantity
       </button>
+      <ToastContainer />
     </div>
   );
 }

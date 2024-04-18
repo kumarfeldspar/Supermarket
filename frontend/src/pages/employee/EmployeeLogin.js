@@ -19,7 +19,7 @@ function EmployeeLogin() {
         </button>
         <button
           className="employeeButton"
-          onClick={() => navigate("/updateitem")}
+          onClick={() => navigate("/updateQuantity")}
         >
           Update Quantity
         </button>

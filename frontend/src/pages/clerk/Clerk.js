@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Clerk.css";
-import jsPDF from "jspdf"; // Import jsPDF directly
+import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -11,8 +11,12 @@ function Clerk() {
   const [billDetails, setBillDetails] = useState([]);
   const [currentItemId, setCurrentItemId] = useState("");
   const [currentQuantity, setCurrentQuantity] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userInfoCollected, setUserInfoCollected] = useState(false);
 
   const { type, isLoggined, token } = useContext(GlobalContext);
+
   useEffect(() => {
     if (!isLoggined || type !== "clerk") {
       navigate("/unauthorized");
@@ -20,14 +24,23 @@ function Clerk() {
   }, []);
 
   const handleClerk = () => {
-    if (currentItemId.trim() !== "" && currentQuantity.trim() !== "") {
-      const newBillDetail = {
-        itemId: currentItemId,
-        quantity: currentQuantity,
-      };
-      setBillDetails([...billDetails, newBillDetail]);
-      setCurrentItemId("");
-      setCurrentQuantity("");
+    if (!userInfoCollected) {
+      // If user info not collected yet, collect it
+      if (name.trim() !== "" && phoneNumber.trim() !== "") {
+        setUserInfoCollected(true);
+      } else {
+        alert("Please enter name and phone number.");
+      }
+    } else {
+      if (currentItemId.trim() !== "" && currentQuantity.trim() !== "") {
+        const newBillDetail = {
+          itemId: currentItemId,
+          quantity: currentQuantity,
+        };
+        setBillDetails([...billDetails, newBillDetail]);
+        setCurrentItemId("");
+        setCurrentQuantity("");
+      }
     }
   };
 
@@ -43,9 +56,25 @@ function Clerk() {
 
       const doc = new jsPDF();
       console.log(response.data);
-      //left width top width
-      doc.text("Bill Number: " + response.data.billNumber, 10, 10);
-      doc.text("Total Amount: " + response.data.totalAmount, 10, 20);
+
+      // Add Supermarket Name and Buyer's Name
+      const supermarketName =
+        "                                 IIT ISM Supermarket";
+      const buyerName = name;
+      const buyerPhoneNumber = phoneNumber;
+
+      // Get current date and time
+      const currentDate = new Date().toLocaleString();
+
+      // Print Supermarket Name, Buyer's Name, and Date
+      doc.text(supermarketName, 10, 10);
+      doc.text("Buyer's Name: " + buyerName, 10, 20);
+      doc.text("Phone Number: " + buyerPhoneNumber, 10, 30);
+      doc.text("Date: " + currentDate, 10, 40);
+
+      // Print Bill Number and Total Amount
+      doc.text("Bill Number: " + response.data.billNumber, 10, 50);
+      doc.text("Total Amount: " + response.data.totalAmount, 10, 60);
 
       const headers = [
         "Item Name",
@@ -66,7 +95,7 @@ function Clerk() {
       });
 
       doc.autoTable({
-        startY: 30,
+        startY: 70,
         head: [headers],
         body: tableData,
         theme: "grid",
@@ -82,29 +111,53 @@ function Clerk() {
   return (
     <div className="clerkContainer">
       <h2 className="clerkHeader">Add Items</h2>
-      <div>
+      {!userInfoCollected ? (
         <div>
-          <label>Item ID:</label>
-          <input
-            className="clerkInput"
-            type="text"
-            value={currentItemId}
-            onChange={(e) => setCurrentItemId(e.target.value)}
-          />
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Phone Number:</label>
+            <input
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+          <button className="clerkButton" onClick={handleClerk}>
+            Save Info
+          </button>
         </div>
+      ) : (
         <div>
-          <label>Quantity:</label>
-          <input
-            className="clerkInput"
-            type="number"
-            value={currentQuantity}
-            onChange={(e) => setCurrentQuantity(e.target.value)}
-          />
+          <div>
+            <label>Item ID:</label>
+            <input
+              className="clerkInput"
+              type="text"
+              value={currentItemId}
+              onChange={(e) => setCurrentItemId(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Quantity:</label>
+            <input
+              className="clerkInput"
+              type="number"
+              value={currentQuantity}
+              onChange={(e) => setCurrentQuantity(e.target.value)}
+            />
+          </div>
+          <button className="clerkButton" onClick={handleClerk}>
+            Add
+          </button>
         </div>
-        <button className="clerkButton" onClick={handleClerk}>
-          Add
-        </button>
-      </div>
+      )}
       <div>
         <h3>Items List:</h3>
         <ul className="itemsList">

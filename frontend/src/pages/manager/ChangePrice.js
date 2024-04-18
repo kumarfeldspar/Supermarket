@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "./ChangePrice.css"; // Import the CSS file
+import "./ChangePrice.css";
+import { toast, ToastContainer } from "react-toastify"; // Import toast
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -17,6 +19,7 @@ function ChangePrice() {
         itemId: itemId,
         newPrice: newPrice,
       });
+      toast.success("Price changed successfully"); // Show success toast
       console.log("Price updated successfully");
     } catch (error) {
       console.log(error);
@@ -51,6 +54,7 @@ function ChangePrice() {
       <button className="changePriceButton" onClick={handleChangePrice}>
         Set New Price
       </button>
+      <ToastContainer /> {/* Toast container */}
     </div>
   );
 }

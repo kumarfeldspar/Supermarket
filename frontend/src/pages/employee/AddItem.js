@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./AddItem.css"; // Import the CSS file
+import { toast, ToastContainer } from "react-toastify"; // Import toast
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -28,6 +30,7 @@ function AddItem() {
         quantity: quantity,
         photoUrl: photoUrl,
       });
+      toast.success("Item added successfully");
       console.log("Item added successfully");
       // You may want to do something with the response here if needed
     } catch (error) {
@@ -68,6 +71,7 @@ function AddItem() {
       <button className="addButton" onClick={handleAddItem}>
         Add item
       </button>
+      <ToastContainer />
     </div>
   );
 }
