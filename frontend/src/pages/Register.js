@@ -85,16 +85,17 @@ function Register() {
             />
           </div>
           <div>
-            <input
-              type="text"
+            <select
               name="type"
               id="type"
-              placeholder="type"
               value={type}
-              onChange={(e) => {
-                setType(e.target.value);
-              }}
-            />
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="">Select type</option>
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+              <option value="clerk">Clerk</option>
+            </select>
           </div>
           <div>
             <input

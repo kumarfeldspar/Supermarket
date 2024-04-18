@@ -5,6 +5,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
+import { set } from "mongoose";
 
 function Clerk() {
   const navigate = useNavigate();
@@ -14,6 +15,15 @@ function Clerk() {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userInfoCollected, setUserInfoCollected] = useState(false);
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await axios.post("http://localhost:5000/item");
+      setItem(data.data);
+    }
+    fetchData();
+  }, []);
 
   const { type, isLoggined, token } = useContext(GlobalContext);
 
@@ -137,12 +147,25 @@ function Clerk() {
         <div>
           <div>
             <label>Item ID:</label>
-            <input
+            {/* <input
               className="clerkInput"
               type="text"
               value={currentItemId}
               onChange={(e) => setCurrentItemId(e.target.value)}
-            />
+            /> */}
+            <select
+              className="clerkInput"
+              type="text"
+              value={currentItemId}
+              onChange={(e) => setCurrentItemId(e.target.value)}
+            >
+              <option value="">Select Item</option>
+              {item.map((item, index) => (
+                <option key={index} value={item.itemId}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Quantity:</label>
@@ -163,6 +186,7 @@ function Clerk() {
         <ul className="itemsList">
           {billDetails.map((detail, index) => (
             <li key={index}>
+              {console.log(detail)}
               Item ID: {detail.itemId}, Quantity: {detail.quantity}
             </li>
           ))}
