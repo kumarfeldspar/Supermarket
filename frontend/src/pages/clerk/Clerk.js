@@ -146,13 +146,7 @@ function Clerk() {
       ) : (
         <div>
           <div>
-            <label>Item ID:</label>
-            {/* <input
-              className="clerkInput"
-              type="text"
-              value={currentItemId}
-              onChange={(e) => setCurrentItemId(e.target.value)}
-            /> */}
+            <label>Item name:</label>
             <select
               className="clerkInput"
               type="text"
