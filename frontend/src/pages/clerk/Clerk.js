@@ -33,13 +33,10 @@ function Clerk() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "https://supermarket-automation.onrender.com/generateBill",
-        {
-          token: token,
-          billDetails: billDetails,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/generateBill", {
+        token: token,
+        billDetails: billDetails,
+      });
 
       console.log("Items added successfully");
       setBillDetails([]);

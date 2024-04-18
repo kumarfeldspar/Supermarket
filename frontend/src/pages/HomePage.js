@@ -19,13 +19,21 @@ import "./HomePage.css"; // Import the CSS file
 import { useNavigate } from "react-router-dom";
 
 const Banner = ({ image }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Use the navigate function to redirect to the desired location
+    navigate("/login");
+  };
   return (
     <div className="banner">
       <img src={front} alt="Banner" className="banner-img" />
       <div className="banner-content">
         <h2>Welcome to World's Best Supermarket</h2>
         <p>Explore our fresh groceries and products</p>
-        <button className="btn btn-primary">Shop Now</button>
+        <button className="btn btn-primary" onClick={handleClick}>
+          Shop Now
+        </button>
       </div>
     </div>
   );
