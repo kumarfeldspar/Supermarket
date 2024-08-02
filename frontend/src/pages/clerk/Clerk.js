@@ -19,7 +19,7 @@ function Clerk() {
   useEffect(() => {
     async function fetchData() {
       const data = await axios.post(
-        "https://supermarket-automation.onrender.com//item"
+        "https://supermarket-automation.onrender.com/item"
       );
       setItem(data.data);
     }
@@ -58,7 +58,7 @@ function Clerk() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "https://supermarket-automation.onrender.com//generateBill",
+        "https://supermarket-automation.onrender.com/generateBill",
         {
           token: token,
           billDetails: billDetails,

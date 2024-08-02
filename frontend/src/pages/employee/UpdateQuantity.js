@@ -15,7 +15,7 @@ function UpdateQuantity() {
   useEffect(() => {
     async function fetchData() {
       const data = await axios.post(
-        "https://supermarket-automation.onrender.com//item"
+        "https://supermarket-automation.onrender.com/item"
       );
       setItem(data.data);
     }
@@ -32,7 +32,7 @@ function UpdateQuantity() {
   const handleUpdateQuantity = async () => {
     try {
       await axios.post(
-        "https://supermarket-automation.onrender.com//updateQuantity",
+        "https://supermarket-automation.onrender.com/updateQuantity",
         {
           token: token,
           itemId: itemId,

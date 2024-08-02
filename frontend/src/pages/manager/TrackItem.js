@@ -15,7 +15,7 @@ function TrackItem() {
   useEffect(() => {
     async function fetchData() {
       const data = await axios.post(
-        "https://supermarket-automation.onrender.com//item"
+        "https://supermarket-automation.onrender.com/item"
       );
       setItem(data.data);
     }
@@ -32,7 +32,7 @@ function TrackItem() {
   const handleTrackItem = async () => {
     try {
       const resopnse = await axios.post(
-        "https://supermarket-automation.onrender.com//itemsSold",
+        "https://supermarket-automation.onrender.com/itemsSold",
         {
           token: token, // Assuming this is the user ID
           productId: itemId,
