@@ -15,7 +15,9 @@ function ChangePrice() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await axios.post("http://localhost:5000/item");
+      const data = await axios.post(
+        "https://supermarket-automation.onrender.com//item"
+      );
       setItem(data.data);
     }
     fetchData();
@@ -23,11 +25,14 @@ function ChangePrice() {
 
   const handleChangePrice = async () => {
     try {
-      await axios.post("http://localhost:5000/changePrice", {
-        token: token,
-        itemId: itemId,
-        newPrice: newPrice,
-      });
+      await axios.post(
+        "https://supermarket-automation.onrender.com//changePrice",
+        {
+          token: token,
+          itemId: itemId,
+          newPrice: newPrice,
+        }
+      );
       toast.success("Price changed successfully"); // Show success toast
       console.log("Price updated successfully");
     } catch (error) {

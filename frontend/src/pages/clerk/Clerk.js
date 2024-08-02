@@ -5,7 +5,6 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
-import { set } from "mongoose";
 
 function Clerk() {
   const navigate = useNavigate();
@@ -19,7 +18,9 @@ function Clerk() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await axios.post("http://localhost:5000/item");
+      const data = await axios.post(
+        "https://supermarket-automation.onrender.com//item"
+      );
       setItem(data.data);
     }
     fetchData();
@@ -56,10 +57,13 @@ function Clerk() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/generateBill", {
-        token: token,
-        billDetails: billDetails,
-      });
+      const response = await axios.post(
+        "https://supermarket-automation.onrender.com//generateBill",
+        {
+          token: token,
+          billDetails: billDetails,
+        }
+      );
 
       console.log("Items added successfully");
       setBillDetails([]);

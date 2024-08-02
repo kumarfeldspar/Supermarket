@@ -14,7 +14,9 @@ function UpdateQuantity() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await axios.post("http://localhost:5000/item");
+      const data = await axios.post(
+        "https://supermarket-automation.onrender.com//item"
+      );
       setItem(data.data);
     }
     fetchData();
@@ -29,11 +31,14 @@ function UpdateQuantity() {
 
   const handleUpdateQuantity = async () => {
     try {
-      await axios.post("http://localhost:5000/updateQuantity", {
-        token: token,
-        itemId: itemId,
-        quantity: quantity,
-      });
+      await axios.post(
+        "https://supermarket-automation.onrender.com//updateQuantity",
+        {
+          token: token,
+          itemId: itemId,
+          quantity: quantity,
+        }
+      );
       toast.success("Item added successfully");
       console.log("Quantity updated successfully");
     } catch (error) {
