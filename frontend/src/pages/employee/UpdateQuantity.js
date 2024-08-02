@@ -10,6 +10,15 @@ function UpdateQuantity() {
   const navigate = useNavigate();
   const [itemId, setItemId] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await axios.post("http://localhost:5000/item");
+      setItem(data.data);
+    }
+    fetchData();
+  }, []);
 
   const { type, isLoggined, token } = useContext(GlobalContext);
   useEffect(() => {
@@ -34,13 +43,27 @@ function UpdateQuantity() {
 
   return (
     <div className="updateQuantityContainer">
-      <input
+      {/* <input
         className="updateQuantityInput"
         type="number"
         placeholder="Item ID"
         value={itemId}
         onChange={(e) => setItemId(e.target.value)}
-      />
+      /> */}
+      <label>Item name:</label>
+      <select
+        className="clerkInput"
+        type="text"
+        value={itemId}
+        onChange={(e) => setItemId(e.target.value)}
+      >
+        <option value="">Select Item</option>
+        {item.map((item, index) => (
+          <option key={index} value={item.itemId}>
+            {item.name}
+          </option>
+        ))}
+      </select>
       <input
         className="updateQuantityInput"
         type="number"

@@ -11,6 +11,15 @@ function ChangePrice() {
   const [itemId, setItemId] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const { token } = useContext(GlobalContext);
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await axios.post("http://localhost:5000/item");
+      setItem(data.data);
+    }
+    fetchData();
+  }, []);
 
   const handleChangePrice = async () => {
     try {
@@ -37,13 +46,20 @@ function ChangePrice() {
 
   return (
     <div className="changePriceContainer">
-      <input
-        className="changePriceInput"
-        type="number"
-        placeholder="Item ID"
+      <label>Item name:</label>
+      <select
+        className="clerkInput"
+        type="text"
         value={itemId}
         onChange={(e) => setItemId(e.target.value)}
-      />
+      >
+        <option value="">Select Item</option>
+        {item.map((item, index) => (
+          <option key={index} value={item.itemId}>
+            {item.name}
+          </option>
+        ))}
+      </select>
       <input
         className="changePriceInput"
         type="number"
